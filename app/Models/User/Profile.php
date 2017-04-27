@@ -3,9 +3,18 @@
 namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Artist\Profile as ArtistProfile;
+use App\Models\User\Address;
 
 class Profile extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'user_profiles';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,4 +30,14 @@ class Profile extends Model
         'address_id',
         'user_id',
     ];
+
+    public function address()
+    {
+        return $this->hasOne(Address::class, 'id', 'address_id');
+    }
+
+    public function artist_profile()
+    {
+        return $this->hasOne(ArtistProfile::class, 'user_id', 'id');
+    }
 }

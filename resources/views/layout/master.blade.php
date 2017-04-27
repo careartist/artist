@@ -22,13 +22,15 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Css animations  -->
-    <link href="css/animate.css" rel="stylesheet">
+    @yield('head')
+    
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
 
     <!-- Theme stylesheet, if possible do not edit this stylesheet -->
-    <link href="css/style.default.css" rel="stylesheet">
+    <link href="{{ asset('css/style.default.css') }}" rel="stylesheet">
 
     <!-- Custom stylesheet - for your changes -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
     <!-- Responsivity for older IE -->
     <!--[if lt IE 9]>
@@ -37,9 +39,8 @@
     <![endif]-->
 
     <!-- Favicon and apple touch icons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon" />
 
-    @yield('head')
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -52,7 +53,7 @@
 
 
     <div id="all">
-        
+
         @include('layout.navigation')
 
         <!-- *** LOGIN MODAL ***
@@ -96,6 +97,19 @@ _________________________________________________________ -->
         <div id="content">
             <div class="container">
 
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('warning'))
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ session('warning') }}
+                    </div>
+                @endif
+        
                 <div class="row">
 
                     @yield('content')
@@ -169,7 +183,7 @@ _________________________________________________________ -->
                         <div class="item same-height-row clearfix">
                             <div class="image same-height-always">
                                 <a href="#">
-                                    <img class="img-responsive" src="img/detailsquare.jpg" alt="">
+                                    <img class="img-responsive" src="{{ asset('img/detailsquare.jpg') }}" alt="">
                                 </a>
                             </div>
                             <div class="name same-height-always">
@@ -180,7 +194,7 @@ _________________________________________________________ -->
                         <div class="item same-height-row clearfix">
                             <div class="image same-height-always">
                                 <a href="#">
-                                    <img class="img-responsive" src="img/detailsquare.jpg" alt="">
+                                    <img class="img-responsive" src="{{ asset('img/detailsquare.jpg') }}" alt="">
                                 </a>
                             </div>
                             <div class="name same-height-always">
@@ -191,7 +205,7 @@ _________________________________________________________ -->
                         <div class="item same-height-row clearfix">
                             <div class="image same-height-always">
                                 <a href="#">
-                                    <img class="img-responsive" src="img/detailsquare.jpg" alt="">
+                                    <img class="img-responsive" src="{{ asset('img/detailsquare.jpg') }}" alt="">
                                 </a>
                             </div>
                             <div class="name same-height-always">
@@ -234,32 +248,32 @@ _________________________________________________________ -->
                     <div class="photostream">
                         <div>
                             <a href="#">
-                                <img src="img/detailsquare.jpg" class="img-responsive" alt="#">
+                                <img src="{{ asset('img/detailsquare.jpg') }}" class="img-responsive" alt="#">
                             </a>
                         </div>
                         <div>
                             <a href="#">
-                                <img src="img/detailsquare2.jpg" class="img-responsive" alt="#">
+                                <img src="{{ asset('img/detailsquare2.jpg') }}" class="img-responsive" alt="#">
                             </a>
                         </div>
                         <div>
                             <a href="#">
-                                <img src="img/detailsquare3.jpg" class="img-responsive" alt="#">
+                                <img src="{{ asset('img/detailsquare3.jpg') }}" class="img-responsive" alt="#">
                             </a>
                         </div>
                         <div>
                             <a href="#">
-                                <img src="img/detailsquare3.jpg" class="img-responsive" alt="#">
+                                <img src="{{ asset('img/detailsquare3.jpg') }}" class="img-responsive" alt="#">
                             </a>
                         </div>
                         <div>
                             <a href="#">
-                                <img src="img/detailsquare2.jpg" class="img-responsive" alt="#">
+                                <img src="{{ asset('img/detailsquare2.jpg') }}" class="img-responsive" alt="#">
                             </a>
                         </div>
                         <div>
                             <a href="#">
-                                <img src="img/detailsquare.jpg" class="img-responsive" alt="#">
+                                <img src="{{ asset('img/detailsquare.jpg') }}" class="img-responsive" alt="#">
                             </a>
                         </div>
                     </div>
@@ -297,14 +311,15 @@ _________________________________________________________ -->
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 
-    @yield('script')
     
     <!-- <script src="js/jquery.cookie.js"></script> -->
     <!-- <script src="js/waypoints.min.js"></script> -->
     <!-- <script src="js/jquery.counterup.min.js"></script> -->
     <!-- <script src="js/jquery.parallax-1.1.3.js"></script> -->
-    <script src="js/front.js"></script>
+    <script src="{{ asset('js/front.js') }}"></script>
 
+    @yield('script')
+    
 </body>
 
 </html>

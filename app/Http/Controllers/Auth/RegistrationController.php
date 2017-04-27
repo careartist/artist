@@ -42,7 +42,7 @@ class RegistrationController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Account registered. Please confirm your email!');;
     }
 
     /**
@@ -55,10 +55,10 @@ class RegistrationController extends Controller
     {
         return Validator::make($data, [
             'account_type' => 'required|string|max:50',
-            'screen_name' => 'required|string|max:50|unique:profiles',
+            'screen_name' => 'required|string|max:50|unique:user_profiles',
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
-            'phone_number' => 'required|numeric|digits:10|unique:profiles',
+            'phone_number' => 'required|numeric|digits:10|unique:user_profiles',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required',

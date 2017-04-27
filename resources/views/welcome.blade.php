@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('content')
-            <div class="content">
+            <div class="container" style="min-height: 600px;">
                 <div class="title m-b-md">
                     Laravel
                 </div>

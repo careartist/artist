@@ -16,6 +16,13 @@ class LoginController extends Controller
     public function postLogin(Request $request)
     {
     	Sentinel::authenticate($request->all());
+
+        $profile = Sentinel::getUser()->profile;
+        if(!$profile->address)
+        {
+            return redirect()->route('user.address.create');
+        }
+        
     	return redirect()->route('home');
     }
 
