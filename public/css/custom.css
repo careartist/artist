@@ -1,0 +1,28 @@
+/* your styles go here */
+.form-control {
+    height: 34px;
+}
+
+/* universal box */
+.box {
+  background: transparent;
+}
+#top .login .nav ul > li > a {
+    color: #000000;
+}
+
+.login .nav>li, .login .nav>li>a {
+    position: relative;
+    display: inline-block; 
+    color: #333;
+}
+.login .nav > li > a {
+     padding: 0 15px; 
+}
+.login .nav > li > a:hover, .nav > li > a:focus {
+     background-color: transparent; 
+}
+.login .nav .open > a, .login .nav .open > a:hover, .login .nav .open > a:focus {
+    background-color: transparent;
+    border-color: transparent;
+}
