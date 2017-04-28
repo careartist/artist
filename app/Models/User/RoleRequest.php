@@ -3,7 +3,8 @@
 namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Artist\Profile;
+use App\Models\Artist\Profile as ArtistProfile;
+use App\user;
 
 class RoleRequest extends Model
 {

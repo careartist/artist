@@ -9,13 +9,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-7">
-                        <h1>Edit Profile</h1>
+                        <h1>{{ Sentinel::getUser()->profile->screen_name }}</h1>
                     </div>
                     <div class="col-md-5">
                         <ul class="breadcrumb">
                             <li><a href="{{ route('home') }}">Home</a></li>
+                            <li><a href="{{ route('user.profile') }}">{{ Sentinel::getUser()->profile->screen_name }}</a></li>
+                            <li>Edit Profile</li>
                         </ul>
-
                     </div>
                 </div>
             </div>
@@ -27,15 +28,15 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="box">
                 {{ Form::model($profile, ['route' => ['user.profile.update']]) }}
-                <!-- <form class="form-horizontal" role="form" method="post" action="{{ route('user.address.update') }}"> -->
+                
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
 
-                    {{ Form::bsText('screen_name', null, ['placeholder' => 'Screen Name']) }}
+                    {{ Form::bsText('screen_name', null, ['placeholder' => 'Screen Name', 'disabled' => 'disabled']) }}
 
-                    {{ Form::bsText('first_name', null, ['placeholder' => 'First Name']) }}
+                    {{ Form::bsText('first_name', null, ['placeholder' => 'First Name', 'disabled' => 'disabled']) }}
                         
-                    {{ Form::bsText('last_name', null, ['placeholder' => 'Last Name']) }}
+                    {{ Form::bsText('last_name', null, ['placeholder' => 'Last Name', 'disabled' => 'disabled']) }}
 
                     {{ Form::bsText('phone_number', null, ['placeholder' => 'Phone Number']) }}
 

@@ -22,43 +22,6 @@ Route::name('auth.login')->get('/login', 'Auth\LoginController@login');
 Route::post('/login', 'Auth\LoginController@postLogin');
 Route::name('auth.logout')->post('/logout', 'Auth\LoginController@logout');
 
-// Route::prefix('admin')->group(function() {
-
-// 	Route::prefix('manage')->group(function() {
-// 		Route::resource('/roles', 'Admin\RolesController');
-// 		Route::resource('/users', 'Admin\UsersController');
-// 		Route::name('user.roles')->get('/users/{user}/roles', 'Admin\RolesController@userRoles');
-
-// 		Route::prefix('role')->group(function() {
-// 			Route::resource('/requests', 'Admin\RoleRequestController');
-// 		});
-// 	});
-
-// 	Route::prefix('role')->group(function() {
-// 		Route::name('assign.role')->post('/assign/{user}/{role}', 'Admin\ManageRolesController@assignRole');
-// 		Route::name('remove.role')->post('/remove/{user}/{role}', 'Admin\ManageRolesController@removeRole');
-		
-// 		Route::name('accept.request')->post('/request/accept/{profile}', 'Admin\ManageRequestController@acceptRequest');
-// 		Route::name('reject.request')->post('/request/reject/{profile}', 'Admin\ManageRequestController@rejectRequest');
-
-
-// 	});
-
-// 	Route::prefix('profile')->group(function() {
-// 		Route::name('admin.profile')->get('/', 'Admin\ProfileController@index');
-// 		Route::name('admin.profile.edit')->get('/edit', 'Admin\ProfileController@edit');
-// 		Route::name('admin.profile.update')->post('/edit', 'Admin\ProfileController@update');
-
-// 		Route::prefix('address')->group(function() {
-// 			Route::name('admin.address.index')->get('/', 'Admin\AddressController@index');
-// 			Route::name('admin.address.create')->get('/create', 'Admin\AddressController@create');
-// 			Route::name('admin.address.store')->post('/create', 'Admin\AddressController@store');
-// 			Route::name('admin.address.edit')->get('/edit', 'Admin\AddressController@edit');
-// 			Route::name('admin.address.update')->post('/edit', 'Admin\AddressController@update');
-// 		});
-// 	});
-
-// });
 
 Route::prefix('user')->group(function() {
 
@@ -80,17 +43,45 @@ Route::prefix('user')->group(function() {
 	Route::name('user.request.role.store')->post('/request/role', 'User\RoleRequestController@store');
 	Route::name('user.request.role.show')->get('/requests/role/{request}', 'User\RoleRequestController@show');
 	
-	// Route::prefix('profile')->group(function() {
-	// 	Route::resource('/artist', 'Artist\ProfileController');
-	// });
+	Route::prefix('artist')->group(function() {
+		Route::name('artist.profile')->get('/profile', 'Artist\ProfileController@index');
+		Route::name('artist.profile.create')->get('/profile/add', 'Artist\ProfileController@create');
+		Route::name('artist.profile.store')->post('/profile/add', 'Artist\ProfileController@store');
+		Route::name('artist.profile.edit')->get('/profile/edit', 'Artist\ProfileController@edit');
+		Route::name('artist.profile.update')->put('/profile/edit', 'Artist\ProfileController@update');
 
-	// Route::resource('/events', 'Artist\EventController');
+		Route::resource('/events', 'Artist\EventController');
+	});
 
+
+	Route::prefix('admin')->group(function() {
+
+		Route::prefix('manage')->group(function() {
+			Route::resource('/users', 'Admin\UsersController');
+			Route::resource('/address', 'Admin\AddressController');
+			Route::resource('/roles', 'Admin\RolesController');
+			Route::name('user.roles')->get('/users/{user}/roles', 'Admin\RolesController@userRoles');
+
+			Route::prefix('role')->group(function() {
+				Route::resource('/requests', 'Admin\RoleRequestController');
+			});
+		});
+
+		Route::prefix('role')->group(function() {
+			Route::name('assign.role')->post('/assign/{user}/{role}', 'Admin\ManageRolesController@assignRole');
+			Route::name('remove.role')->post('/remove/{user}/{role}', 'Admin\ManageRolesController@removeRole');
+			
+			Route::name('accept.request')->post('/request/accept/{profile}', 'Admin\ManageRequestController@acceptRequest');
+			Route::name('reject.request')->post('/request/reject/{profile}', 'Admin\ManageRequestController@rejectRequest');
+
+		});
+
+	});
 
 	Route::get('/ajax-places/{region}', 'User\AddressController@ajaxCities');
 	Route::name('ucare.increment')->post('/ucare-increment', 'User\UcareController@increment');
 	Route::name('user.avatar')->post('/ajax-avatar/{profile}', 'User\AvatarController@ajaxAvatar');
-	// Route::name('event.cover')->post('/ajax-cover/{event}', 'Artist\EventCoverController@ajaxCover');
+	Route::name('event.cover')->post('/ajax-cover/{event}', 'Artist\EventCoverController@ajaxCover');
 });
 
 // Route::prefix('services')->group(function() {

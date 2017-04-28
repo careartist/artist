@@ -3,8 +3,8 @@
 namespace App\Models\Artist;
 
 use Illuminate\Database\Eloquent\Model;
-// use App\Models\User\ArtistProfileBio;
-// use App\Models\Artist\Event;
+use App\Models\Artist\ProfileBio;
+use App\Models\Artist\Event;
 use App\User;
 
 class Profile extends Model
@@ -38,13 +38,13 @@ class Profile extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    // public function artist_bio()
-    // {
-    //     return $this->hasOne(ArtistProfileBio::class, 'profile_id', 'id');
-    // }
+    public function artist_bio()
+    {
+        return $this->hasOne(ProfileBio::class, 'profile_id', 'id');
+    }
 
-    // public function artist_events()
-    // {
-    //     return $this->hasMany(Event::class, 'profile_id', 'id');
-    // }
+    public function artist_events()
+    {
+        return $this->hasMany(Event::class, 'profile_id', 'id');
+    }
 }

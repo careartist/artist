@@ -128,8 +128,8 @@ class RoleRequestController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'cui_number' => 'required|max:50|unique:artist_profiles',
-            'legal_name' => 'required|max:190',
+            'cui_number' => 'bail|required|max:50|unique:artist_profiles',
+            'legal_name' => 'bail|required|max:190|unique:artist_profiles',
             'authority' => 'required|max:190',
         ]);
     }

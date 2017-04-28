@@ -50,12 +50,18 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        // 'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        // 'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'auth' => \App\Http\Middleware\AuthMiddleware::class,
         'user_address' => \App\Http\Middleware\CheckUserAddress::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'artist' => \App\Http\Middleware\ArtistMiddleware::class,
+        'seller' => \App\Http\Middleware\SellerMiddleware::class,
+        'buyer' => \App\Http\Middleware\BuyerMiddleware::class,
+        'bidder' => \App\Http\Middleware\BidderMiddleware::class,
     ];
 }

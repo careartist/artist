@@ -5,6 +5,7 @@ namespace App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Artist\Profile as ArtistProfile;
 use App\Models\User\Address;
+use App\User;
 
 class Profile extends Model
 {
@@ -39,5 +40,10 @@ class Profile extends Model
     public function artist_profile()
     {
         return $this->hasOne(ArtistProfile::class, 'user_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsToOne(User::class, 'user_id', 'id');
     }
 }

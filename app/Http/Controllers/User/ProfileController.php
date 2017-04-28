@@ -59,16 +59,17 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $profile = Sentinel::getUser()->profile;
-        $validation = $this->validator($request->all(), $profile->id)->validate();
 
-        if($validation)
-        {
-            return $validation;
-        }
+        $this->validate($request, [
+            // 'screen_name' => 'bail|required|max:50|unique:user_profiles,screen_name,' . $profile->id,
+            // 'first_name' => 'required|string|max:50',
+            // 'last_name' => 'required|string|max:50',
+            'phone_number' => 'bail|required|numeric|unique:user_profiles,phone_number,' . $profile->id,
+        ]);
 
-        $profile->screen_name = $request['screen_name'];
-        $profile->first_name = $request['first_name'];
-        $profile->last_name = $request['last_name'];
+        // $profile->screen_name = $request['screen_name'];
+        // $profile->first_name = $request['first_name'];
+        // $profile->last_name = $request['last_name'];
         $profile->phone_number = $request['phone_number'];
         $profile->save();
 
@@ -84,10 +85,10 @@ class ProfileController extends Controller
     protected function validator(array $data, $id)
     {
         return Validator::make($data, [
-            'screen_name' => 'required|max:50|unique:user_profiles,screen_name,' . $id,
+            'screen_name' => 'bail|required|max:50|unique:user_profiles,screen_name,' . $id,
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
-            'phone_number' => 'required|numeric|unique:user_profiles,phone_number,' . $id,
+            'phone_number' => 'bail|required|numeric|unique:user_profiles,phone_number,' . $id,
         ]);
     }
 }

@@ -55,11 +55,11 @@ class RegistrationController extends Controller
     {
         return Validator::make($data, [
             'account_type' => 'required|string|max:50',
-            'screen_name' => 'required|string|max:50|unique:user_profiles',
+            'screen_name' => 'bail|required|string|max:50|unique:user_profiles',
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
-            'phone_number' => 'required|numeric|digits:10|unique:user_profiles',
-            'email' => 'required|string|email|max:255|unique:users',
+            'phone_number' => 'bail|required|numeric|digits:10|unique:user_profiles',
+            'email' => 'bail|required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required',
         ]);

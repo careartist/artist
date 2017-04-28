@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User\Profile;
 use App\Models\User\Region;
 use App\Models\User\Place;
 
@@ -35,5 +36,10 @@ class Address extends Model
     public function place()
     {
         return $this->hasOne(Place::class, 'id', 'place_id');
+    }
+
+    public function user_profile()
+    {
+        return $this->belongsTo(Profile::class, 'id', 'address_id');
     }
 }

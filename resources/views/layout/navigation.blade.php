@@ -30,7 +30,7 @@ _________________________________________________________ -->
                                     <a href="{{ route('user.profile') }}">Profile</a>
                                 </li>
                                 <li>
-                                    <a href="#">Account</a>
+                                    <a href="{{ route('requests.index') }}">Role Requests</a>
                                 </li>
                                 <li>
                                     <a href="#">Settings</a>
