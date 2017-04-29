@@ -137,7 +137,7 @@ class EventController extends Controller
         {
             return redirect()->route('events.index');
         }
-        
+
         return view('artist.events.edit')
                 ->withEventTypes(EventType::get())
                 ->withTags(EventTag::get())
@@ -177,8 +177,28 @@ class EventController extends Controller
         $event->contact_name    = $request['contact_name'];
         $event->contact_email   = $request['contact_email'];
         $event->contact_phone   = $request['contact_phone'];
-
         $event->save();
+
+        $id_tags = array();
+        $tags = $request->input('tags', []);
+        foreach ($tags as $tag) {
+
+            $result = EventTag::where('name', $tag)->first();
+
+            if(count($result) > 0)
+            {
+                $id_tags[] = $result->id;
+            }
+            else
+            {
+                $newtag = new EventTag;
+                $newtag->name = $tag;
+                $newtag->save();
+                $id_tags[] = $newtag->id;
+            }
+        }
+        // $tags = $id_tags ? $id_tags : [];
+        $event->tags()->sync($id_tags, true);
 
         return redirect()->route('events.show', ['event' => $event->id]);
 

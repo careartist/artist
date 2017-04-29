@@ -114,9 +114,9 @@
 
                     <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
                         <label for="tags" class="control-label">Tags</label>
-                        <select class="js-example-tokenizer form-control" name="tags[]" id="tags" multiple="multiple">
+                        <select class="js-tags form-control" name="tags[]" id="tags" multiple="multiple">
                         @foreach($tags as $tag)
-                            <option>{{ $tag->name }}</option>
+                            <option value="{{$tag->name}}">{{ $tag->name }}</option>
                         @endforeach
                         </select>
                     </div>
@@ -133,11 +133,11 @@
 <script type="text/javascript" src="{{ asset('js/select2.full.min.js') }}"></script>
 
 <script>
-    $(".js-example-tokenizer").select2({
+    $(".js-tags").select2({
       tags: true,
       tokenSeparators: [',', ' '],
       placeholder: 'Select or type your tags'
-    })
+    }).val([@foreach($event->tags as $tag)"{{$tag->name}}"@if(!$loop->last),@endif @endforeach]).trigger('change');
 </script>
 
 <script type="text/javascript" src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>

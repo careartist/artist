@@ -114,7 +114,7 @@
 
                     <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
                         <label for="tags" class="control-label">Tags</label>
-                        <select class="js-example-tokenizer form-control" name="tags[]" id="tags" multiple="multiple">
+                        <select class="js-tags form-control" name="tags[]" id="tags" multiple="multiple">
                         @foreach($tags as $tag)
                             <option>{{ $tag->name }}</option>
                         @endforeach
@@ -133,7 +133,7 @@
 <script type="text/javascript" src="{{ asset('js/select2.full.min.js') }}"></script>
 
 <script>
-    $(".js-example-tokenizer").select2({
+    $(".js-tags").select2({
       tags: true,
       tokenSeparators: [',', ' '],
       placeholder: 'Select or type your tags'

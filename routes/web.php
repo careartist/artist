@@ -39,10 +39,6 @@ Route::prefix('user')->group(function() {
 		Route::name('user.address.update')->put('/edit', 'User\AddressController@update');
 	});
 
-	Route::name('user.request.role.create')->get('/request/role', 'User\RoleRequestController@create');
-	Route::name('user.request.role.store')->post('/request/role', 'User\RoleRequestController@store');
-	Route::name('user.request.role.show')->get('/requests/role/{request}', 'User\RoleRequestController@show');
-	
 	Route::prefix('artist')->group(function() {
 		Route::name('artist.profile')->get('/profile', 'Artist\ProfileController@index');
 		Route::name('artist.profile.create')->get('/profile/add', 'Artist\ProfileController@create');
@@ -50,9 +46,12 @@ Route::prefix('user')->group(function() {
 		Route::name('artist.profile.edit')->get('/profile/edit', 'Artist\ProfileController@edit');
 		Route::name('artist.profile.update')->put('/profile/edit', 'Artist\ProfileController@update');
 
-		Route::resource('/events', 'Artist\EventController');
+		Route::resource('/artist/events', 'Artist\EventController');
 	});
 
+	Route::name('user.request.role.create')->get('/request/role', 'User\RoleRequestController@create');
+	Route::name('user.request.role.store')->post('/request/role', 'User\RoleRequestController@store');
+	Route::name('user.request.role.show')->get('/requests/role/{request}', 'User\RoleRequestController@show');
 
 	Route::prefix('admin')->group(function() {
 
@@ -62,18 +61,16 @@ Route::prefix('user')->group(function() {
 			Route::resource('/roles', 'Admin\RolesController');
 			Route::name('user.roles')->get('/users/{user}/roles', 'Admin\RolesController@userRoles');
 
-			Route::prefix('role')->group(function() {
-				Route::resource('/requests', 'Admin\RoleRequestController');
-			});
+			// Route::prefix('role')->group(function() {
+				Route::resource('/role/requests', 'Admin\RoleRequestController');
+			// });
 		});
 
 		Route::prefix('role')->group(function() {
 			Route::name('assign.role')->post('/assign/{user}/{role}', 'Admin\ManageRolesController@assignRole');
 			Route::name('remove.role')->post('/remove/{user}/{role}', 'Admin\ManageRolesController@removeRole');
-			
 			Route::name('accept.request')->post('/request/accept/{profile}', 'Admin\ManageRequestController@acceptRequest');
 			Route::name('reject.request')->post('/request/reject/{profile}', 'Admin\ManageRequestController@rejectRequest');
-
 		});
 
 	});
