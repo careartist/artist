@@ -1,106 +1,91 @@
-@extends('layout.master')
+@extends('layout.account')
 
 @section('head')
 @endsection
 
-@section('breadcrumbs')
-
-        <div id="heading-breadcrumbs">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <h1>{{ $event->title }}</h1>
-                    </div>
-                    <div class="col-md-5">
-                        <ul class="breadcrumb">
-                            <li><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="{{ route('events.index') }}">Events</a></li>
-                            <li>{{ $event->title }}</li>
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-@endsection
-
 @section('content')
-        <div class="box">
-            <div class="row">
-                <div class="col-md-12">
-                    {{ $event->title }}
-                    <span class="pull-right">
-                        <a href="{{ route('events.edit', ['event' => $event->id]) }}" class="btn btn-xs btn-primary">
-                        Edit Event
-                        </a>
-                    </span>
-                    <hr>
-                </div>
+        <div class="card">
+            <div class="card-header" data-background-color="purple">
+                <h4 class="title">Profile</h4>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <img id="img-cover" src="@if($event->cover) {{route('home')}}/{{ $event->cover }} @else https://placeholdit.imgix.net/~text?txtsize=33&txt=900%C3%97300&w=900&h=300 @endif" class="thumbnail img-responsive">
-                    <p>
-                        <form id="event-cover" action="{{route('event.cover', ['event' => $event->id])}}">
-                            <input type="hidden" name="cover" id="cover" role="uploadcare-uploader" data-image-shrink="1200x1200 60%" data-crop="3:1" data-file-types="jpg JPG" />
-                            {{ csrf_field() }}
-                            <div id="upload-image-btn" class="hide">
-                                <input type="submit" class="btn btn-primary" value="Save!" />
-                            </div>
-                        </form>
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <hr>
-                    <h4>{{ $event->title }}</h4>
-                    <hr>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        From: {{ Carbon\Carbon::parse($event->start_at)->format('d M Y h:i A') }}
-                    </div>
-                    <div class="col-md-6">
-                        @if($event->end_at)
-                        Until: {{ Carbon\Carbon::parse($event->end_at)->format('d M Y h:i A') }}
-                        @endif
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <hr>
-                    {{ $event->description }}
-                    <hr>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        {{ $event->type }}
-                    </div>
-                    <div class="col-md-6">
-                        {{ $event->price }}
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <hr>
-                    <div class="col-md-6">
-                        {{ $event->contact_name }}
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                {{ $event->contact_email }}
-                            </div>
-                            <div class="col-md-12">
-                                {{ $event->contact_phone }}
-                            </div>
+            <div class="card-content">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ $event->title }}
+                            <span class="pull-right">
+                                <a href="{{ route('events.edit', ['event' => $event->id]) }}" class="btn btn-xs btn-primary">
+                                Edit Event
+                                </a>
+                            </span>
+                            <hr>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12">
-                @foreach($event->tags as $tag)
-                    <span class="label label-default">{{ $tag->name }}</span>
-                @endforeach
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img id="img-cover" src="@if($event->cover) {{route('home')}}/{{ $event->cover }} @else https://placeholdit.imgix.net/~text?txtsize=33&txt=900%C3%97300&w=900&h=300 @endif" class="thumbnail img-responsive">
+                            <p>
+                                <form id="event-cover" action="{{route('event.cover', ['event' => $event->id])}}">
+                                    <input type="hidden" name="cover" id="cover" role="uploadcare-uploader" data-image-shrink="1200x1200 60%" data-crop="3:1" data-file-types="jpg JPG" />
+                                    {{ csrf_field() }}
+                                    <div id="upload-image-btn" class="hide">
+                                        <input type="submit" class="btn btn-primary" value="Save!" />
+                                    </div>
+                                </form>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                            <h4>{{ $event->title }}</h4>
+                            <hr>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                From: {{ Carbon\Carbon::parse($event->start_at)->format('d M Y h:i A') }}
+                            </div>
+                            <div class="col-md-6">
+                                @if($event->end_at)
+                                Until: {{ Carbon\Carbon::parse($event->end_at)->format('d M Y h:i A') }}
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <hr>
+                            {{ $event->description }}
+                            <hr>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                {{ $event->type }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ $event->price }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="col-md-6">
+                                {{ $event->contact_name }}
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ $event->contact_email }}
+                                    </div>
+                                    <div class="col-md-12">
+                                        {{ $event->contact_phone }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                        @foreach($event->tags as $tag)
+                            <span class="label label-default">{{ $tag->name }}</span>
+                        @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

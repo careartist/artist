@@ -1,51 +1,61 @@
-@extends('layout.master')
+@extends('layout.auth')
 
 @section('head')
 @endsection
 
-@section('breadcrumbs')
-
-        <div id="heading-breadcrumbs">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <h1>Sign in</h1>
-                    </div>
-                    <div class="col-md-5">
-                        <ul class="breadcrumb">
-                            <li><a href="{{ route('home') }}">Home</a>
-                            </li>
-                            <li>Sign in</li>
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-@endsection
-
 @section('content')
-        <div class="box">
-            <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
 
-            <hr>
+                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="card card-signup">
+                        <form action="{{ route('auth.login') }}" method="post">
+                            {{ csrf_field() }}
+                            <div class="header header-primary text-center">
+                                <h4 class="card-title">Log in</h4>
+                                <div class="social-line">
+                                    <a href="#pablo" class="btn btn-just-icon btn-simple">
+                                        <i class="fa fa-facebook-square"></i>
+                                    </a>
+                                    <a href="#pablo" class="btn btn-just-icon btn-simple">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                    <a href="#pablo" class="btn btn-just-icon btn-simple">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="description text-center">Or Be Classical</p>
+                            <div class="card-content">
 
-            <form action="{{ route('auth.login') }}" method="post">
-            	{{ csrf_field() }}
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" name="email" id="email" placeholder="Your Email address" required>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">email</i>
+                                    </span>
+                                    <input type="email" name="email" class="form-control" placeholder="Email...">
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">lock_outline</i>
+                                    </span>
+                                    <input type="password" name="password" placeholder="Password..." class="form-control" />
+                                </div>
+
+                                <!-- If you want to add a checkbox to this form, uncomment this code
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes" checked>
+                                        Subscribe to newsletter
+                                    </label>
+                                </div> -->
+                            </div>
+                            <div class="footer text-center">
+                                <input type="submit" value="Get Started" class="btn btn-primary btn-simple btn-wd btn-lg" />
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-template-main"><i class="fa fa-user-md"></i> Log in</button>
-                </div>
-            </form>
-        </div>
+
 @endsection
 
 @section('scripts')

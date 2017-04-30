@@ -22,8 +22,11 @@ Route::name('auth.login')->get('/login', 'Auth\LoginController@login');
 Route::post('/login', 'Auth\LoginController@postLogin');
 Route::name('auth.logout')->post('/logout', 'Auth\LoginController@logout');
 
+Route::name('public.events.tag')->get('events/tag/{tag}', 'EventTagController@show');
 
 Route::prefix('user')->group(function() {
+
+	Route::name('user.dashboard')->get('/', 'User\DashboardController@index');
 
 	Route::prefix('profile')->group(function() {
 		Route::name('user.profile')->get('/', 'User\ProfileController@index');

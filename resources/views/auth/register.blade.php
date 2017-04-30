@@ -1,61 +1,131 @@
-@extends('layout.master')
+@extends('layout.auth')
 
 @section('head')
 @endsection
 
-@section('breadcrumbs')
+@section('content')
 
-        <div id="heading-breadcrumbs">
-            <div class="container">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="card card-signup">
+                <h2 class="card-title text-center">Register</h2>
                 <div class="row">
-                    <div class="col-md-7">
-                        <h1>New account</h1>
+                    <div class="col-md-5 col-md-offset-1">
+                        <div class="info info-horizontal">
+                            <div class="icon icon-rose">
+                                <i class="material-icons">timeline</i>
+                            </div>
+                            <div class="description">
+                                <h4 class="info-title">Marketing</h4>
+                                <p class="description">
+                                    We've created the marketing campaign of the website. It was a very interesting collaboration.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info info-horizontal">
+                            <div class="icon icon-primary">
+                                <i class="material-icons">code</i>
+                            </div>
+                            <div class="description">
+                                <h4 class="info-title">Fully Coded in HTML5</h4>
+                                <p class="description">
+                                    We've developed the website with HTML5 and CSS3. The client has access to the code using GitHub.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info info-horizontal">
+                            <div class="icon icon-info">
+                                <i class="material-icons">group</i>
+                            </div>
+                            <div class="description">
+                                <h4 class="info-title">Built Audience</h4>
+                                <p class="description">
+                                    There is also a Fully Customizable CMS Admin Dashboard for this product.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-5">
-                        <ul class="breadcrumb">
-                            <li><a href="{{ route('home') }}">Home</a>
-                            </li>
-                            <li>New account</li>
-                        </ul>
+
+                        <form action="{{ route('auth.register') }}" method="post">
+                            <div class="card-content">
+                                {{ csrf_field() }}
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">assignment_ind</i>
+                                    </span>
+                                    <select class="form-control" name="account_type">
+                                        <option value="">Selecteaza Tip Cont...</option>
+                                        <option value="utilizator">Utilizator</option>
+                                        <option value="uap">Artist - Membru UAP</option>
+                                        <option value="artist">Artist</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">fingerprint</i>
+                                    </span>
+                                    <input type="text" name="screen_name" class="form-control" placeholder="Screen Name...">
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">perm_identity</i>
+                                    </span>
+                                    <input type="text" name="first_name" class="form-control" placeholder="First Name...">
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">perm_identity</i>
+                                    </span>
+                                    <input type="text" name="last_name" class="form-control" placeholder="Last Name...">
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">phone_android</i>
+                                    </span>
+                                    <input type="text" name="phone_number" class="form-control" placeholder="Phone Number...">
+                                </div>
+
+                                <hr>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">email</i>
+                                    </span>
+                                    <input type="text" name="email" class="form-control" placeholder="Email...">
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">lock_outline</i>
+                                    </span>
+                                    <input type="password" name="password" placeholder="Password..." class="form-control" />
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">lock_outline</i>
+                                    </span>
+                                    <input type="password" name="password_confirmation" placeholder="Password Confirmation..." class="form-control" />
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-template-main"><i class="fa fa-user-md"></i> Register</button>
+                                </div>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
             </div>
         </div>
 
-@endsection
-
-@section('content')
-        <div class="box">
-            <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
-
-            <hr>
-
-            <form action="{{ route('auth.register') }}" method="post">
-                {{ csrf_field() }}
-                
-                {{ Form::bsSelect('account_type', ['utilizator' => 'Utilizator', 'uap' => 'Artist - Membru UAP', 'artist' => 'Artist'], null, ['placeholder' => 'Select']) }}
-
-                {{ Form::bsText('screen_name', null, ['placeholder' => 'Screen Name']) }}
-
-                {{ Form::bsText('first_name', null, ['placeholder' => 'First Name']) }}
-                    
-                {{ Form::bsText('last_name', null, ['placeholder' => 'Last Name']) }}
-
-                {{ Form::bsText('phone_number', null, ['placeholder' => 'Phone Number']) }}
-
-                <hr>
-                {{ Form::bsEmail('email', null, ['placeholder' => 'Your Email address']) }}
-
-                {{ Form::bsPassword('password', ['placeholder' => 'Your Password']) }}
-
-                {{ Form::bsPassword('password_confirmation', ['placeholder' => 'Password Confirm']) }}
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-template-main"><i class="fa fa-user-md"></i> Register</button>
-                </div>
-            </form>
-        </div>
 @endsection
 
 @section('scripts')
