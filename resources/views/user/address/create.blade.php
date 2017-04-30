@@ -28,70 +28,42 @@
 @endsection
 
 @section('content')
-        <div class="col-md-6 col-md-offset-3">
-            <div class="box">
+        <div class="box">
+            <form class="form-horizontal" role="form" method="post" action="{{ route('user.address.store') }}">
+                {{ csrf_field() }}
 
-                    <form class="form-horizontal" role="form" method="post" action="{{ route('user.address.store') }}">
-                        {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="region" class="control-label">Region</label>
+                    <select id="region" class="form-control" name="region" >
+                        <option value="">Region</option>
 
-                        <div class="form-group">
-                            <label for="region" class="col-md-4 control-label">Region</label>
-                            <div class="col-md-6">
-                                <select id="region" class="form-control" name="region" >
-                                    <option value="">Region</option>
+                        @foreach($regions as $region)
+                        <option value="{{$region->id}}">{{$region->place}}</option>
+                        @endforeach
 
-                                    @foreach($regions as $region)
-                                    <option value="{{$region->id}}">{{$region->place}}</option>
-                                    @endforeach
+                    </select>
+                </div>
 
-                                </select>
+                <div class="form-group hide" id="places">
+                    <label for="place" class="control-label">place</label>
+                    <select name="place" id="place" class="form-control selectpicker" data-live-search="true">
+                        <option value="">Select</option>
+                    </select>
+                </div>
 
-                                @if ($errors->has('region'))
+                <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                    <label for="address" class="control-label">Address</label>
+                    <textarea id="address" class="form-control" name="address" required autofocus>{{ old('address') }}</textarea>
+                </div>
 
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('region') }}</strong>
-                                    </span>
-
-                                @endif
-                                
-                            </div>
-                        </div>
-
-                        <div class="form-group hide" id="places">
-                            <label for="place" class="col-md-4 control-label">place</label>
-
-                            <div class="col-md-6">
-
-                                <select name="place" id="place" class="form-control selectpicker" data-live-search="true">
-                                    <option value="">Select</option>
-                                </select>
-                                
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                            <label for="address" class="col-md-4 control-label">Address</label>
-
-                            <div class="col-md-6">
-                                <textarea id="address" class="form-control" name="address" required autofocus>{{ old('address') }}</textarea>
-
-                                @if ($errors->has('address'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('address') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Add Address
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-            </div>
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary">
+                            Add Address
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
 @endsection
 

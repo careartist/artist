@@ -17,7 +17,6 @@
                             </li>
                             <li>Role Requests</li>
                         </ul>
-
                     </div>
                 </div>
             </div>
@@ -26,36 +25,34 @@
 @endsection
 
 @section('content')
-        <div class="col-md-6 col-md-offset-3">
-            <div class="box">
-                @if(count($requests) > 0)
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul>
-                        @foreach($requests as $request)
-                            <li>
-                                <a href="{{ route('users.show', ['user' => $request->user->id]) }}">
-                                    {{ $request->user->profile->screen_name }}
-                                </a>
+        <div class="box">
+            @if(count($requests) > 0)
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                    @foreach($requests as $request)
+                        <li>
+                            <a href="{{ route('users.show', ['user' => $request->user->id]) }}">
+                                {{ $request->user->profile->screen_name }}
+                            </a>
 
-                                <span class="pull-right">
-                                    <a href="{{ route('requests.show', ['request' => $request->id]) }}">
-                                        See Request
-                                    </a>
-                                </span>
-                            </li>
-                        @endforeach
-                        </ul>
-                    </div>
+                            <span class="pull-right">
+                                <a href="{{ route('requests.show', ['request' => $request->id]) }}">
+                                    See Request
+                                </a>
+                            </span>
+                        </li>
+                    @endforeach
+                    </ul>
                 </div>
-                @else
-                <div class="row">
-                    <div class="col-md-12">
-                        no requests
-                    </div>
-                </div>
-                @endif
             </div>
+            @else
+            <div class="row">
+                <div class="col-md-12">
+                    no requests
+                </div>
+            </div>
+            @endif
         </div>
 @endsection
 

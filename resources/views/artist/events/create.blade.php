@@ -26,106 +26,104 @@
 @endsection
 
 @section('content')
-        <div class="col-md-8 col-md-offset-2">
-            <div class="box">
-                <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
-                <hr>
+        <div class="box">
+            <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
+            <hr>
 
-                <form action="{{ route('events.store') }}" method="post">
+            <form action="{{ route('events.store') }}" method="post">
 
-                    {{ csrf_field() }}
+                {{ csrf_field() }}
 
-                    {{ Form::bsText('title', null, ['placeholder' => 'Title']) }}
+                {{ Form::bsText('title', null, ['placeholder' => 'Title']) }}
 
-                    <div class="form-group{{ $errors->has('event_type') ? ' has-error' : '' }}">
-                        <label for="event_type" class="control-label">Event Type</label>
+                <div class="form-group{{ $errors->has('event_type') ? ' has-error' : '' }}">
+                    <label for="event_type" class="control-label">Event Type</label>
 
-                        <select id="event_type" class="form-control" name="event_type" >
-                            <option value="">Select</option>
-                            @foreach($event_types as $type)
-                            <option value="{{ $type->name }}"@if(old('event_type') == $type->name) selected="selected"@endif>{{ $type->name }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('event_type'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('event_type') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-
-
-                    {{ Form::bsTextarea('description', null, ['placeholder' => 'Description']) }}
-
-                    <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('start_at') ? ' has-error' : '' }}">
-                            <label for="start_at" class="control-label">Start Date</label>
-                            <div class="input-append date form_datetime">
-                                <input type="text" class="form-control" value="{{ old('start_at') }}" name="start_at" id="start_at" readonly>
-                                <span class="pull-right">
-                                    <span class="add-on"><i class="fa fa-times" aria-hidden="true"></i></span>
-                                    <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                </span>
-                            </div>
-                            @if ($errors->has('start_at'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('start_at') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('end_at') ? ' has-error' : '' }}">
-                            <label for="end_at" class="control-label">End Date</label>
-                            <div class="input-append date form_datetime">
-                                <input type="text" class="form-control" value="{{ old('end_at') }}" name="end_at" id="end_at" readonly>
-                                <span class="pull-right">
-                                    <span class="add-on"><i class="fa fa-times" aria-hidden="true"></i></span>
-                                    <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                </span>
-                            </div>
-                            @if ($errors->has('end_at'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('end_at') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group{{ $errors->has('event_price') ? ' has-error' : '' }}">
-                        <label for="event_price" class="control-label">Event Price</label>
-                        <select id="event_price" class="form-control" name="event_price" >
-                            <option value="">Select</option>
-                            <option value="free"@if(old('event_price') == 'free') selected="selected"@endif>Free</option>
-                            <option value="paid"@if(old('event_price') == 'paid') selected="selected"@endif>Paid</option>
-                        </select>
-                        @if ($errors->has('event_price'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('event_price') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-
-                    {{ Form::bsText('contact_name', null, ['placeholder' => 'Contact Name']) }}
-
-                    {{ Form::bsText('contact_email', null, ['placeholder' => 'Contact Email']) }}
-
-                    {{ Form::bsText('contact_phone', null, ['placeholder' => 'Contact Phone Number']) }}
-
-                    <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
-                        <label for="tags" class="control-label">Tags</label>
-                        <select class="js-tags form-control" name="tags[]" id="tags" multiple="multiple">
-                        @foreach($tags as $tag)
-                            <option>{{ $tag->name }}</option>
+                    <select id="event_type" class="form-control" name="event_type" >
+                        <option value="">Select</option>
+                        @foreach($event_types as $type)
+                        <option value="{{ $type->name }}"@if(old('event_type') == $type->name) selected="selected"@endif>{{ $type->name }}</option>
                         @endforeach
-                        </select>
-                    </div>
+                    </select>
+                    @if ($errors->has('event_type'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('event_type') }}</strong>
+                        </span>
+                    @endif
+                </div>
 
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-template-main"><i class="fa fa-user-md"></i> Add Event</button>
+
+                {{ Form::bsTextarea('description', null, ['placeholder' => 'Description']) }}
+
+                <div class="col-md-6">
+                    <div class="form-group{{ $errors->has('start_at') ? ' has-error' : '' }}">
+                        <label for="start_at" class="control-label">Start Date</label>
+                        <div class="input-append date form_datetime">
+                            <input type="text" class="form-control" value="{{ old('start_at') }}" name="start_at" id="start_at" readonly>
+                            <span class="pull-right">
+                                <span class="add-on"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                            </span>
+                        </div>
+                        @if ($errors->has('start_at'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('start_at') }}</strong>
+                            </span>
+                        @endif
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group{{ $errors->has('end_at') ? ' has-error' : '' }}">
+                        <label for="end_at" class="control-label">End Date</label>
+                        <div class="input-append date form_datetime">
+                            <input type="text" class="form-control" value="{{ old('end_at') }}" name="end_at" id="end_at" readonly>
+                            <span class="pull-right">
+                                <span class="add-on"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                            </span>
+                        </div>
+                        @if ($errors->has('end_at'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('end_at') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('event_price') ? ' has-error' : '' }}">
+                    <label for="event_price" class="control-label">Event Price</label>
+                    <select id="event_price" class="form-control" name="event_price" >
+                        <option value="">Select</option>
+                        <option value="free"@if(old('event_price') == 'free') selected="selected"@endif>Free</option>
+                        <option value="paid"@if(old('event_price') == 'paid') selected="selected"@endif>Paid</option>
+                    </select>
+                    @if ($errors->has('event_price'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('event_price') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                {{ Form::bsText('contact_name', null, ['placeholder' => 'Contact Name']) }}
+
+                {{ Form::bsText('contact_email', null, ['placeholder' => 'Contact Email']) }}
+
+                {{ Form::bsText('contact_phone', null, ['placeholder' => 'Contact Phone Number']) }}
+
+                <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
+                    <label for="tags" class="control-label">Tags</label>
+                    <select class="js-tags form-control" name="tags[]" id="tags" multiple="multiple">
+                    @foreach($tags as $tag)
+                        <option>{{ $tag->name }}</option>
+                    @endforeach
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-user-md"></i> Add Event</button>
+                </div>
+            </form>
         </div>
 @endsection
 

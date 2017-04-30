@@ -49,48 +49,42 @@
         <div id="content">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                    @if (session('success'))
+                @if (session('success'))
 
-                        @component('components.alert.dismissible')
-                            @slot('style')
-                                success
-                            @endslot
+                    @component('components.alert.dismissible')
+                        @slot('style')
+                            success
+                        @endslot
 
-                            @slot('message')
-                                {{ session('success') }}
-                            @endslot
-                        @endcomponent
+                        @slot('messaage')
+                            {{ session('success') }}
+                        @endslot
+                    @endcomponent
 
-                    @elseif (session('warning'))
+                @elseif (session('warning'))
 
-                        @component('components.alert.dismissible')
-                            @slot('style')
-                                warning
-                            @endslot
+                    @component('components.alert.dismissible')
+                        @slot('style')
+                            warning
+                        @endslot
 
-                            @slot('message')
-                                {{ session('warning') }}
-                            @endslot
-                        @endcomponent
-                        
-                    @endif
-                    </div>
-                </div>
+                        @slot('messaage')
+                            {{ session('warning') }}
+                        @endslot
+                    @endcomponent
+                    
+                @endif
         
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
 
                     @yield('content')
 
-                    </div>
                 </div>
 
             </div>
         </div>
 
-        @include('layout.account_footer')
+        @yield('account_footer')
 
     </div>
 

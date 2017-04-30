@@ -26,27 +26,24 @@
 @endsection
 
 @section('content')
+        <div class="box">
+            <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
 
-        <div class="col-md-6 col-md-offset-3">
-            <div class="box">
-                <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
-
-                <hr>
+            <hr>
 
 
-                {{ Form::model($profile, ['route' => ['artist.profile.update']]) }}
+            {{ Form::model($profile, ['route' => ['artist.profile.update']]) }}
 
-                	{{ csrf_field() }}
-                    {{ method_field('PUT') }}
+            	{{ csrf_field() }}
+                {{ method_field('PUT') }}
 
-                    {{ Form::bsTextarea('bio', null, ['placeholder' => 'Artist Bio']) }}
+                {{ Form::bsTextarea('bio', null, ['placeholder' => 'Artist Bio']) }}
 
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-template-main"><i class="fa fa-user-md"></i> Add Bio</button>
-                    </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-user-md"></i> Add Bio</button>
+                </div>
 
-                {{ Form::close() }}
-            </div>
+            {{ Form::close() }}
         </div>
 @endsection
 
