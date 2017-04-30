@@ -55,16 +55,22 @@
 
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active">
+                    <li class="{{ ( $current_route_name == 'user.dashboard') ? 'active' : '' }}">
                         <a href="{{ route('user.dashboard') }}">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="user.html">
+                    <li class="{{ ( $current_route_name == 'user.profile') ? 'active' : '' }}">
+                        <a href="{{ route('user.profile') }}">
                             <i class="material-icons">person</i>
                             <p>User Profile</p>
+                        </a>
+                    </li>
+                    <li class="{{ ( $current_route_name == 'events.index') ? 'active' : '' }}">
+                        <a href="{{ route('events.index') }}">
+                            <i class="material-icons">list</i>
+                            <p>Events</p>
                         </a>
                     </li>
                     <li>

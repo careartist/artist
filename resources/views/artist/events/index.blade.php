@@ -49,6 +49,7 @@
                                     <span class="label label-info">{{ $tag->name }}</span>
                                 </a>
                             @endforeach
+                            <hr>
                             </div>
                         </div>
                         @endforeach
