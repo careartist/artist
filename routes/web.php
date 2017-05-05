@@ -51,6 +51,8 @@ Route::prefix('user')->group(function() {
 
 		Route::resource('/artist/events', 'Artist\EventController');
 	});
+	
+	Route::get('/event-place/{region}', 'Artist\EventController@ajaxCities');
 
 	Route::name('user.request.role.create')->get('/request/role', 'User\RoleRequestController@create');
 	Route::name('user.request.role.store')->post('/request/role', 'User\RoleRequestController@store');

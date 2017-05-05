@@ -5,6 +5,8 @@ namespace App\Models\Artist;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Artist\Profile as ArtistProfile;
 use App\Models\Artist\EventTag;
+use App\Models\User\Region;
+use App\Models\User\Place;
 
 class Event extends Model
 {
@@ -31,6 +33,8 @@ class Event extends Model
         'contact_name',
         'contact_email',
         'contact_phone',
+        'region_id',
+        'place_id',
         'profile_id',
     ];
 
@@ -42,5 +46,15 @@ class Event extends Model
     public function tags()
     {
         return $this->belongsToMany(EventTag::class);
+    }
+    
+    public function region()
+    {
+        return $this->hasOne(Region::class, 'id', 'region_id');
+    }
+
+    public function place()
+    {
+        return $this->hasOne(Place::class, 'id', 'place_id');
     }
 }

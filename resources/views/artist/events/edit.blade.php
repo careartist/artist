@@ -8,7 +8,7 @@
 @section('content')
         <div class="card">
             <div class="card-header" data-background-color="purple">
-                <h4 class="title">Profile</h4>
+                <h4 class="title">Edit Event</h4>
             </div>
             <div class="card-content">
                 <div class="col-md-10 col-md-offset-1">
@@ -40,40 +40,35 @@
 
                         {{ Form::bsTextarea('description', $event->description, ['placeholder' => 'Description']) }}
 
-                        <div class="col-md-6">
-                            <div class="form-group{{ $errors->has('start_at') ? ' has-error' : '' }}">
-                                <label for="start_at" class="control-label">Start Date</label>
-                                <div class="input-append date form_datetime">
-                                    <input type="text" class="form-control" value="@if(old('start_at')){{ old('start_at') }}@else{{$event->start_at}}@endif" name="start_at" id="start_at" readonly>
-                                    <span class="pull-right">
-        	                            <span class="add-on"><i class="fa fa-times" aria-hidden="true"></i></span>
-        	                            <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                    </span>
-                                </div>
-                                @if ($errors->has('start_at'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('start_at') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="form-group{{ $errors->has('start_at') ? ' has-error' : '' }}">
+                            <label for="start_at" class="control-label">Start Date</label>
+                            <div class="input-append date form_datetime">
+                                <input type="text" class="form-control" value="@if(old('start_at')){{ old('start_at') }}@else{{$event->start_at}}@endif" name="start_at" id="start_at" readonly>
+                                <span class="pull-right">
+    	                            <span class="add-on"><i class="fa fa-times" aria-hidden="true"></i></span>
+    	                            <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                </span>
                             </div>
+                            @if ($errors->has('start_at'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('start_at') }}</strong>
+                                </span>
+                            @endif
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group{{ $errors->has('end_at') ? ' has-error' : '' }}">
-                                <label for="end_at" class="control-label">End Date</label>
-                                <div class="input-append date form_datetime">
-                                    <input type="text" class="form-control" value="@if(old('end_at')){{ old('end_at') }}@else{{$event->end_at}}@endif" name="end_at" id="end_at" readonly>
-                                    <span class="pull-right">
-        	                            <span class="add-on"><i class="fa fa-times" aria-hidden="true"></i></span>
-        	                            <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                    </span>
-                                </div>
-                                @if ($errors->has('end_at'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('end_at') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="form-group{{ $errors->has('end_at') ? ' has-error' : '' }}">
+                            <label for="end_at" class="control-label">End Date</label>
+                            <div class="input-append date form_datetime">
+                                <input type="text" class="form-control" value="@if(old('end_at')){{ old('end_at') }}@else{{$event->end_at}}@endif" name="end_at" id="end_at" readonly>
+                                <span class="pull-right">
+    	                            <span class="add-on"><i class="fa fa-times" aria-hidden="true"></i></span>
+    	                            <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                </span>
                             </div>
+                            @if ($errors->has('end_at'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('end_at') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
                         <div class="form-group{{ $errors->has('event_price') ? ' has-error' : '' }}">
@@ -86,6 +81,46 @@
                             @if ($errors->has('event_price'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('event_price') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('region') ? ' has-error' : '' }}">
+                            <label for="region" class="control-label">Event Region</label>
+                            <select id="region" class="form-control" name="region" >
+                                <option value="">Region</option>
+
+                                @foreach($regions as $region)
+                                <option value="{{$region->id}}"@if($event->region->id == $region->id) selected="selected"@endif>{{$region->place}}</option>
+                                @endforeach
+
+                            </select>
+                            @if($errors->has('region'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('region') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('place') ? ' has-error' : '' }}" id="places">
+                            <label for="place" class="control-label">Event Place</label>
+                            <select id="place" class="form-control" name="place">
+                                @foreach($regions as $region)
+                                @if($event->region->id == $region->id)
+                                @foreach($region->places as $place)
+
+                                <option value="{{ $place->id }}"
+                                        @if(old('place')) 
+                                            @if(old('place') == $place->id) selected="selected"@endif 
+                                        @elseif($event->place->id == $place->id) selected="selected"@endif>{{ $place->place }}</option>
+
+                                @endforeach
+                                @endif
+                                @endforeach
+                            </select>
+                            @if($errors->has('place'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('place') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -106,7 +141,7 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-template-main"><i class="fa fa-user-md"></i> Edit Event</button>
+                            <button type="submit" class="btn btn-info btn-block"><i class="fa fa-user-md"></i> Edit Event</button>
                         </div>
                     </form>
                 </div>
@@ -115,12 +150,47 @@
 @endsection
 
 @section('script')
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+    <script>
+
+        $('#region').on('change', function (e) 
+        {
+            var region_id = e.target.value;
+            if(region_id != '')
+            {
+                getPlaces(region_id);
+            }
+        });
+
+        function getPlaces(region_id){
+
+            $('#place').html('');
+            $('#place').append('<option value="">Select Event Place</option>');
+                                    
+            $.get('{{ route('home') }}/user/event-place/' + region_id, function (data) 
+            {
+                var last_id = 0;
+                $.each(data, function (index, placeObj) 
+                {
+                    if(placeObj.p_id != last_id)
+                    {
+                        $('#place').append('<optgroup label="'+ placeObj.p_place +'"></optgroup>');
+                        last_id = placeObj.p_id;
+                    }
+                    $('#place').append('<option value="'+placeObj.id+'">'+placeObj.place+'</option>');
+                });
+            });
+        }
+    </script>
 <script type="text/javascript" src="{{ asset('js/select2.full.min.js') }}"></script>
 
 <script>
     $(".js-tags").select2({
       tags: true,
       tokenSeparators: [',', ' '],
+      maximumSelectionSize: 2,
       placeholder: 'Select or type your tags'
     }).val([@foreach($event->tags as $tag)"{{$tag->name}}"@if(!$loop->last),@endif @endforeach]).trigger('change');
 </script>

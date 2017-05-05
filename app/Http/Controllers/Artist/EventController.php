@@ -9,6 +9,9 @@ use App\Models\User\Ucare;
 use App\Models\Artist\EventType;
 use App\Models\Artist\Event;
 use App\Models\Artist\EventTag;
+use App\Models\User\Region;
+use App\Models\User\PlacePivot;
+use App\Models\User\Place;
 use Sentinel;
 
 class EventController extends Controller
@@ -40,9 +43,14 @@ class EventController extends Controller
      */
     public function create()
     {
+        // $cities = Region::find(10)->places()->get();
+        // dd($cities);
+
+        $regions = Region::orderBy('place', 'asc')->get();
         return view('artist.events.create')
                 ->withEventTypes(EventType::get())
-                ->withTags(EventTag::get());
+                ->withTags(EventTag::get())
+                ->withRegions($regions);
     }
 
     /**
@@ -54,11 +62,6 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $validation = $this->validator($request->all())->validate();
-
-        if($validation)
-        {
-            return $validation;
-        }
 
         $id_tags=array();
         foreach ($request->tags as $tag) {
@@ -88,6 +91,8 @@ class EventController extends Controller
             'contact_name'  => $request['contact_name'],
             'contact_email' => $request['contact_email'],
             'contact_phone' => $request['contact_phone'],
+            'region_id'     => $request['region'],
+            'place_id'      => $request['place'],
             'profile_id'    => $user->profile->artist_profile->id
         ]);
 
@@ -138,10 +143,15 @@ class EventController extends Controller
             return redirect()->route('events.index');
         }
 
+        $regions = Region::select('id', 'place')->orderBy('place', 'asc')->get();
+        $places = $this->ajaxCities($event->region_id);
+
         return view('artist.events.edit')
                 ->withEventTypes(EventType::get())
                 ->withTags(EventTag::get())
-                ->withEvent($event);
+                ->withEvent($event)
+                ->withRegions($regions)
+                ->withPlaces($places);
     }
 
     /**
@@ -177,6 +187,8 @@ class EventController extends Controller
         $event->contact_name    = $request['contact_name'];
         $event->contact_email   = $request['contact_email'];
         $event->contact_phone   = $request['contact_phone'];
+        $event->region_id       = $request['region'];
+        $event->place_id        = $request['place'];
         $event->save();
 
         $id_tags = array();
@@ -235,11 +247,25 @@ class EventController extends Controller
             'description' => 'required|string|max:2000',
             'event_type' => 'required|string|max:50',
             'event_price' => 'required|string|max:50',
-            'start_at' => 'required|string|max:25',
-            'end_at' => 'nullable|string|max:25',
+            'start_at' => 'required|date|max:25',
+            'end_at' => 'nullable|date|after:start_at',
             'contact_name' => 'nullable|string|max:50',
-            'contact_email' => 'nullable|string|email|max:190',
-            'contact_phone' => 'nullable|string|max:20',
+            'contact_email' => 'nullable|string|email|max:190|required_with:contact_name',
+            'contact_phone' => 'nullable|string|max:20|required_with:contact_name',
+            'tags' => 'required|array',
+            'region' => 'required|string|max:100',
+            'place' => 'required|string|max:100',
         ]);
+    }
+
+    public function ajaxCities($region_id)
+    {
+        return $regions = Place::select('places.id', 'places.place', 'c.id as p_id', 'c.place as p_place')
+                        ->leftJoin('places_ref as c', 'c.id', '=', 'places.sirsup')
+                        ->whereIn('places.sirsup', PlacePivot::select('places_ref.id')
+                            ->where('places_ref.sirsup', $region_id)
+                            ->get()
+                        )
+                        ->orderBy('places.fsl', 'asc')->get();
     }
 }

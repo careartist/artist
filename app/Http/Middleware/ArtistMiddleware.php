@@ -21,6 +21,6 @@ class ArtistMiddleware
         if ($user->inRole('artist'))
             return $next($request);
         else
-            return redirect()->route('home');
+            return redirect()->route('user.profile');
     }
 }

@@ -73,6 +73,14 @@
                             <p>Events</p>
                         </a>
                     </li>
+                    @if(Sentinel::getUser()->roles()->first() && Sentinel::getUser()->roles()->first()->slug == 'admin')
+                        <li class="{{ ( $current_route_name == 'requests.index') ? 'active' : '' }}">
+                            <a href="{{ route('requests.index') }}">
+                                <i class="material-icons">list</i>
+                                <p>Role Requests</p>
+                            </a>
+                        </li>
+                    @endif
                     <li>
                         <a href="table.html">
                             <i class="material-icons">content_paste</i>

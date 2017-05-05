@@ -6,8 +6,7 @@
 @section('content')
         <div class="card">
             <div class="card-header" data-background-color="purple">
-                <h4 class="title">Profile</h4>
-                <p class="category">your profile</p>
+                <h4 class="title">Dashboard</h4>
             </div>
             <div class="card-content">
                 <div class="row">
@@ -38,7 +37,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="col-md-12">
-                                    <a href="{{ route('user.profile.edit') }}" class="btn btn-xs btn-primary btn-block">
+                                    <a href="{{ route('user.profile.edit') }}" class="btn btn-primary btn-block">
                                         Edit profile
                                     </a>
                                     <hr>
@@ -61,7 +60,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="col-md-12">
-                                    <a href="{{ route('user.address.edit') }}" class="btn btn-xs btn-primary btn-block">
+                                    <a href="{{ route('user.address.edit') }}" class="btn btn-primary btn-block">
                                         Edit address
                                     </a>
                                     <hr>

@@ -28,12 +28,6 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="col-md-12">
-                                    <a href="{{ route('user.profile.edit') }}" class="btn btn-primary btn-block">
-                                        Edit profile
-                                    </a>
-                                    <hr>
-                                </div>
-                                <div class="col-md-12">
                                     {{ $user->profile->screen_name }}
                                 </div>
                                 <div class="col-md-12">
@@ -50,12 +44,6 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="col-md-12">
-                                    <a href="{{ route('user.address.edit') }}" class="btn btn-primary btn-block">
-                                        Edit address
-                                    </a>
-                                    <hr>
-                                </div>
                                 <div class="col-md-12">
                                     {{ $user->profile->address->region->place }}
                                 </div>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\User\Address;
 use App\Models\User\Region;
+use App\Models\User\PlacePivot;
 use App\Models\User\Place;
 use Sentinel;
 
@@ -144,9 +145,9 @@ class AddressController extends Controller
     public function ajaxCities($region_id)
     {
         return $regions = Place::select('places.id', 'places.place', 'c.id as p_id', 'c.place as p_place')
-                        ->leftJoin('places as c', 'c.id', '=', 'places.sirsup')
-                        ->whereIn('places.sirsup', Place::select('places.id')
-                            ->where('places.sirsup', $region_id)
+                        ->leftJoin('places_ref as c', 'c.id', '=', 'places.sirsup')
+                        ->whereIn('places.sirsup', PlacePivot::select('places_ref.id')
+                            ->where('places_ref.sirsup', $region_id)
                             ->get()
                         )
                         ->orderBy('places.fsl', 'asc')->get();

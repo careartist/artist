@@ -6,7 +6,12 @@
 @section('content')
         <div class="card">
             <div class="card-header" data-background-color="purple">
-                <h4 class="title">Profile</h4>
+                <h4 class="title">
+                    Event <b>{{ $event->title }}</b>
+                    <a href="{{ route('events.index') }}" class="pull-right">
+                        All Events
+                    </a>
+                </h4>
             </div>
             <div class="card-content">
                 <div class="col-md-10 col-md-offset-1">
@@ -14,7 +19,7 @@
                         <div class="col-md-12">
                             {{ $event->title }}
                             <span class="pull-right">
-                                <a href="{{ route('events.edit', ['event' => $event->id]) }}" class="btn btn-xs btn-primary">
+                                <a href="{{ route('events.edit', ['event' => $event->id]) }}" class="btn btn-xs btn-success">
                                 Edit Event
                                 </a>
                             </span>
@@ -50,9 +55,18 @@
                                 Until: {{ Carbon\Carbon::parse($event->end_at)->format('d M Y h:i A') }}
                                 @endif
                             </div>
+                            <hr>
+                            <div class="col-md-6">
+                                {{ $event->region->place }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ $event->place->place }}
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
                         </div>
                         <div class="col-md-12">
-                            <hr>
                             {{ $event->description }}
                             <hr>
                         </div>
@@ -63,9 +77,11 @@
                             <div class="col-md-6">
                                 {{ $event->price }}
                             </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
                         </div>
                         <div class="col-md-12">
-                            <hr>
                             <div class="col-md-6">
                                 {{ $event->contact_name }}
                             </div>
@@ -79,12 +95,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
                         </div>
+                        @if(count($event->tags) > 0)
                         <div class="col-md-12">
-                        @foreach($event->tags as $tag)
-                            <span class="label label-default">{{ $tag->name }}</span>
-                        @endforeach
+                            @foreach($event->tags as $tag)
+                                <span class="label label-info">{{ $tag->name }}</span>
+                            @endforeach
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -6,19 +6,15 @@
 @section('content')
         <div class="card">
             <div class="card-header" data-background-color="purple">
-                <h4 class="title">Profile</h4>
+                <h4 class="title">
+                    All Events
+                    <a href="{{ route('events.create') }}" class="pull-right btn btn-sm btn-success">
+                        Add Event
+                    </a>
+                </h4>
             </div>
             <div class="card-content">
                 <div class="col-md-10 col-md-offset-1">
-                    <div class="row">
-                        <div class="col-md-12">
-                            Artist Events
-                            <span class="pull-right">
-                                <a href="{{ route('events.create') }}" class="btn btn-xs btn-primary">Add Event</a>
-                            </span>
-                            <hr>
-                        </div>
-                    </div>
                     @if($user->profile->artist_profile && count($user->profile->artist_profile->artist_events) > 0)
                     <div class="row">
 
