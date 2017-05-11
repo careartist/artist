@@ -67,13 +67,21 @@
                             <p>User Profile</p>
                         </a>
                     </li>
+                    @if(Sentinel::getUser()->inRole('artist'))
+                    <li class="{{ ( $current_route_name == 'artist.profile') ? 'active' : '' }}">
+                        <a href="{{ route('artist.profile') }}">
+                            <i class="material-icons">person</i>
+                            <p>Artist Profile</p>
+                        </a>
+                    </li>
                     <li class="{{ ( $current_route_name == 'events.index') ? 'active' : '' }}">
                         <a href="{{ route('events.index') }}">
                             <i class="material-icons">list</i>
                             <p>Events</p>
                         </a>
                     </li>
-                    @if(Sentinel::getUser()->roles()->first() && Sentinel::getUser()->roles()->first()->slug == 'admin')
+                    @endif
+                    @if(Sentinel::getUser()->inRole('admin'))
                         <li class="{{ ( $current_route_name == 'requests.index') ? 'active' : '' }}">
                             <a href="{{ route('requests.index') }}">
                                 <i class="material-icons">list</i>

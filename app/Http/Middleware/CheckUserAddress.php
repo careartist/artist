@@ -19,7 +19,7 @@ class CheckUserAddress
         $profile = Sentinel::getUser()->profile;
         if(!$profile->address)
         {
-            // return redirect()->route('user.address.create');
+            return redirect()->route('user.address.create');
         }
         return $next($request);
     }

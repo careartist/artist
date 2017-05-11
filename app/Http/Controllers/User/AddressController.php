@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\User\Address;
 use App\Models\User\Region;
-use App\Models\User\PlacePivot;
-use App\Models\User\Place;
 use Sentinel;
 
 class AddressController extends Controller
@@ -70,7 +68,7 @@ class AddressController extends Controller
         $address = new Address;
 
         $address->region_id = $request['region'];
-        $address->place_id = $request['place'];
+        $address->place = $request['place'];
         $address->address = $request['address'];
         $address->save();
 
@@ -91,12 +89,10 @@ class AddressController extends Controller
         $user = Sentinel::getUser();
         $address = $user->profile->address;
         $regions = Region::select('id', 'place')->orderBy('place', 'asc')->get();
-        $places = $this->ajaxCities($address->region_id);
 
         return view('user.address.edit')
                 ->withAddress($address)
-                ->withRegions($regions)
-                ->withPlaces($places);
+                ->withRegions($regions);
     }
 
     /**
@@ -119,7 +115,7 @@ class AddressController extends Controller
         $address = $user->profile->address;
 
         $address->region_id = $request['region'];
-        $address->place_id = $request['place'];
+        $address->place = $request['place'];
         $address->address = $request['address'];
 
         $address->save();
@@ -137,19 +133,8 @@ class AddressController extends Controller
     {
         return Validator::make($data, [
             'region' => 'required|numeric',
-            'place' => 'required|numeric',
+            'place' => 'required|string|max:190',
             'address' => 'required|string|max:190',
         ]);
-    }
-
-    public function ajaxCities($region_id)
-    {
-        return $regions = Place::select('places.id', 'places.place', 'c.id as p_id', 'c.place as p_place')
-                        ->leftJoin('places_ref as c', 'c.id', '=', 'places.sirsup')
-                        ->whereIn('places.sirsup', PlacePivot::select('places_ref.id')
-                            ->where('places_ref.sirsup', $region_id)
-                            ->get()
-                        )
-                        ->orderBy('places.fsl', 'asc')->get();
     }
 }

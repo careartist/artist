@@ -1,9 +1,6 @@
 @extends('layout.account')
 
 @section('head')
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-    
 @endsection
 
 @section('content')
@@ -16,28 +13,44 @@
                     <form class="form-horizontal" role="form" method="post" action="{{ route('user.address.store') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('region') ? ' has-error' : '' }}">
                             <label for="region" class="control-label">Region</label>
                             <select id="region" class="form-control" name="region" >
                                 <option value="">Region</option>
 
                                 @foreach($regions as $region)
-                                <option value="{{$region->id}}">{{$region->place}}</option>
+                                <option value="{{$region->id}}" @if(old('region') == $region->id)selected="selected"@endif>{{$region->place}}</option>
                                 @endforeach
 
                             </select>
+
+                            @if ($errors->has('region'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('region') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
-                        <div class="form-group hide" id="places">
+                        <div class="form-group{{ $errors->has('place') ? ' has-error' : '' }}">
                             <label for="place" class="control-label">place</label>
-                            <select name="place" id="place" class="form-control selectpicker" data-live-search="true">
-                                <option value="">Select</option>
-                            </select>
+                            <input type="text" name="place" class="form-control" value="{{ old('place') }}" placeholder="Place..." required autofocus>
+
+                            @if ($errors->has('place'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('place') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
                         <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                             <label for="address" class="control-label">Address</label>
-                            <textarea id="address" class="form-control" name="address" required autofocus>{{ old('address') }}</textarea>
+                            <textarea id="address" class="form-control" name="address" required>{{ old('address') }}</textarea>
+
+                            @if ($errors->has('address'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('address') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
                         <div class="form-group">
@@ -54,36 +67,4 @@
 @endsection
 
 @section('script')
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-
-    <script>
-        $('#region').on('change', function (e) 
-        {
-            $('#places').removeClass('hide');
-            var region_id = e.target.value;
-            if(region_id != '')
-            {
-                $('#place').html('');
-                $('#place').append('<option value="">Select</option>');
-                                        
-                $.get('{{ route('home') }}/user/ajax-places/' + region_id, function (data) 
-                {
-                    var last_id = 0;
-                    $.each(data, function (index, placeObj) 
-                    {
-                        if(placeObj.p_id != last_id)
-                        {
-                            $('#place').append('<optgroup label="'+ placeObj.p_place +'"></optgroup>');
-                            last_id = placeObj.p_id;
-                        }
-                        $('#place').append('<option data-tokens="'+placeObj.place+'" value="'+placeObj.id+'">'+placeObj.place+'</option>');
-                    });
-                    $('.selectpicker').selectpicker('refresh');
-                });
-            }
-        });
-    </script>
-
 @endsection

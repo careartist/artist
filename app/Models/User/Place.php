@@ -9,10 +9,5 @@ use App\Models\User\Place;
 
 class Place extends Model
 {
-
-    public function places()
-    {
-    	return $this->hasManyThrough(Place::class, PlacePivot::class, 'id', 'sirsup', 'id' );
-    }
 	
 }

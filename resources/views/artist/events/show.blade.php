@@ -17,13 +17,13 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="row">
                         <div class="col-md-12">
-                            {{ $event->title }}
+                            <h3>{{ $event->title }}
                             <span class="pull-right">
                                 <a href="{{ route('events.edit', ['event' => $event->id]) }}" class="btn btn-xs btn-success">
                                 Edit Event
                                 </a>
                             </span>
-                            <hr>
+                            </h3>
                         </div>
                     </div>
                     <div class="row">
@@ -43,27 +43,33 @@
                     <div class="row">
                         <div class="col-md-12">
                             <hr>
-                            <h4>{{ $event->title }}</h4>
+                            <h3>{{ $event->title }}</h3>
                             <hr>
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-6">
-                                From: {{ Carbon\Carbon::parse($event->start_at)->format('d M Y h:i A') }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    From: {{ Carbon\Carbon::parse($event->start_at)->format('d M Y h:i A') }}
+                                </div>
+                                <div class="col-md-6">
+                                    @if($event->end_at)
+                                    Until: {{ Carbon\Carbon::parse($event->end_at)->format('d M Y h:i A') }}
+                                    @endif
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                @if($event->end_at)
-                                Until: {{ Carbon\Carbon::parse($event->end_at)->format('d M Y h:i A') }}
-                                @endif
+                            <div class="row">
+                                <div class="col-md-12"><hr></div>
                             </div>
-                            <hr>
-                            <div class="col-md-6">
-                                {{ $event->region->place }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ $event->region->place }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ $event->place }}
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                {{ $event->place->place }}
-                            </div>
-                            <div class="col-md-12">
-                                <hr>
+                            <div class="row">
+                                <div class="col-md-12"><hr></div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -71,16 +77,19 @@
                             <hr>
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-6">
-                                {{ $event->type }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="label label-primary">{{ $event->type }}</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="label label-success">{{ $event->price }}</span>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                {{ $event->price }}
-                            </div>
-                            <div class="col-md-12">
-                                <hr>
+                            <div class="row">
+                                <div class="col-md-12"><hr></div>
                             </div>
                         </div>
+                        @if($event->contact_name)
                         <div class="col-md-12">
                             <div class="col-md-6">
                                 {{ $event->contact_name }}
@@ -95,17 +104,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <hr>
+                            <div class="row">
+                                <div class="col-md-12"><hr></div>
                             </div>
                         </div>
+                        @endif
                         @if(count($event->tags) > 0)
                         <div class="col-md-12">
                             @foreach($event->tags as $tag)
-                                <span class="label label-info">{{ $tag->name }}</span>
+                                <a href="{{ route('public.events.tag', ['tag' => $tag->name]) }}">
+                                    <span class="label label-info">{{ $tag->name }}</span>
+                                </a>
                             @endforeach
-                            <div class="col-md-12">
-                                <hr>
+                            <div class="row">
+                                <div class="col-md-12"><hr></div>
                             </div>
                         </div>
                         @endif

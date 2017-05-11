@@ -19,7 +19,7 @@
                     	{{ csrf_field() }}
                         {{ method_field('PUT') }}
 
-                        {{ Form::bsText('title', $event->title, ['placeholder' => 'Title']) }}
+                        {{ Form::bsText('title', $event->title, ['placeholder' => 'Title', 'required' => 'required']) }}
 
                         <div class="form-group{{ $errors->has('event_type') ? ' has-error' : '' }}">
                             <label for="event_type" class="control-label">Event Type</label>
@@ -38,12 +38,12 @@
                         </div>
 
 
-                        {{ Form::bsTextarea('description', $event->description, ['placeholder' => 'Description']) }}
+                        {{ Form::bsTextarea('description', $event->description, ['placeholder' => 'Description', 'required' => 'required']) }}
 
                         <div class="form-group{{ $errors->has('start_at') ? ' has-error' : '' }}">
                             <label for="start_at" class="control-label">Start Date</label>
                             <div class="input-append date form_datetime">
-                                <input type="text" class="form-control" value="@if(old('start_at')){{ old('start_at') }}@else{{$event->start_at}}@endif" name="start_at" id="start_at" readonly>
+                                <input type="text" class="form-control" value="@if(old('start_at')){{ old('start_at') }}@else{{$event->start_at}}@endif" name="start_at" id="start_at" readonly required>
                                 <span class="pull-right">
     	                            <span class="add-on"><i class="fa fa-times" aria-hidden="true"></i></span>
     	                            <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
@@ -73,7 +73,7 @@
 
                         <div class="form-group{{ $errors->has('event_price') ? ' has-error' : '' }}">
                             <label for="event_price" class="control-label">Event Price</label>
-                            <select id="event_price" class="form-control" name="event_price" >
+                            <select id="event_price" class="form-control" name="event_price" required>
                                 <option value="">Select</option>
                                 <option value="free"@if($event->price == 'free') selected="selected"@endif>Free</option>
                                 <option value="paid"@if($event->price == 'paid') selected="selected"@endif>Paid</option>
@@ -87,7 +87,7 @@
 
                         <div class="form-group{{ $errors->has('region') ? ' has-error' : '' }}">
                             <label for="region" class="control-label">Event Region</label>
-                            <select id="region" class="form-control" name="region" >
+                            <select id="region" class="form-control" name="region" required>
                                 <option value="">Region</option>
 
                                 @foreach($regions as $region)
@@ -104,20 +104,7 @@
 
                         <div class="form-group{{ $errors->has('place') ? ' has-error' : '' }}" id="places">
                             <label for="place" class="control-label">Event Place</label>
-                            <select id="place" class="form-control" name="place">
-                                @foreach($regions as $region)
-                                @if($event->region->id == $region->id)
-                                @foreach($region->places as $place)
-
-                                <option value="{{ $place->id }}"
-                                        @if(old('place')) 
-                                            @if(old('place') == $place->id) selected="selected"@endif 
-                                        @elseif($event->place->id == $place->id) selected="selected"@endif>{{ $place->place }}</option>
-
-                                @endforeach
-                                @endif
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" value="@if(old('place')){{ old('place') }}@else{{$event->place}}@endif" name="place" id="place" required>
                             @if($errors->has('place'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('place') }}</strong>
@@ -133,7 +120,7 @@
 
                         <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
                             <label for="tags" class="control-label">Tags</label>
-                            <select class="js-tags form-control" name="tags[]" id="tags" multiple="multiple">
+                            <select class="js-tags form-control" name="tags[]" id="tags" multiple="multiple" required>
                             @foreach($tags as $tag)
                                 <option value="{{$tag->name}}">{{ $tag->name }}</option>
                             @endforeach

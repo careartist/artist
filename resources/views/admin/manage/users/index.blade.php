@@ -51,7 +51,7 @@
                                 @if($user->profile->address)
 
                                 <div class="col-md-12">{{ $user->profile->address->region->place }}</div>
-                                <div class="col-md-12">{{ $user->profile->address->place->place }}</div>
+                                <div class="col-md-12">{{ $user->profile->address->place }}</div>
                                 <div class="col-md-12">
                                     {{ $user->profile->address->address }}
                                     <span class="pull-right">

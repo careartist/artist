@@ -69,7 +69,7 @@
                                     {{ $user->profile->address->region->place }}
                                 </div>
                                 <div class="col-md-12">
-                                    {{ $user->profile->address->place->place }}
+                                    {{ $user->profile->address->place }}
                                 </div>
                                 <div class="col-md-12">
                                     {{ $user->profile->address->address }}

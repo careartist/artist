@@ -17,6 +17,7 @@ class RegistrationController extends Controller
 
     public function postRegister(Request $request)
     {
+        // dd($request->all());
         // Laravel validation
         $validation = $this->validator($request->all())->validate();
 
@@ -25,15 +26,16 @@ class RegistrationController extends Controller
             return $validation;
         }
 
+
         $data_user = [
             'email' => $request['email'],
             'password' => $request['password'],
-            'password_confirm' => $request['password_confirm'],
+            'password_confirm' => $request['password_confirmation'],
         ];
 
         $user = Sentinel::registerAndActivate($data_user);
 
-        $prodile = Profile::create([
+        $profile = Profile::create([
             'screen_name' => $request['screen_name'],
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],

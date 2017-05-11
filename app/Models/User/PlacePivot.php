@@ -14,9 +14,4 @@ class PlacePivot extends Model
      * @var string
      */
     protected $table = 'places_ref';
-
-    public function place()
-    {
-    	return $this->manyToMany(Place::class, 'id', 'sirsup');
-    }
 }

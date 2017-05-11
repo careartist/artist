@@ -38,7 +38,7 @@
                                             {{ $requests->user->profile->address->region->place }}
                                         </div>
                                         <div class="col-md-12">
-                                            {{ $requests->user->profile->address->place->place }}
+                                            {{ $requests->user->profile->address->place }}
                                         </div>
                                     </div>
                                     <hr>

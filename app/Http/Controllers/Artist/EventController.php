@@ -92,7 +92,7 @@ class EventController extends Controller
             'contact_email' => $request['contact_email'],
             'contact_phone' => $request['contact_phone'],
             'region_id'     => $request['region'],
-            'place_id'      => $request['place'],
+            'place'      => $request['place'],
             'profile_id'    => $user->profile->artist_profile->id
         ]);
 
@@ -144,14 +144,12 @@ class EventController extends Controller
         }
 
         $regions = Region::select('id', 'place')->orderBy('place', 'asc')->get();
-        $places = $this->ajaxCities($event->region_id);
 
         return view('artist.events.edit')
                 ->withEventTypes(EventType::get())
                 ->withTags(EventTag::get())
                 ->withEvent($event)
-                ->withRegions($regions)
-                ->withPlaces($places);
+                ->withRegions($regions);
     }
 
     /**
@@ -188,7 +186,7 @@ class EventController extends Controller
         $event->contact_email   = $request['contact_email'];
         $event->contact_phone   = $request['contact_phone'];
         $event->region_id       = $request['region'];
-        $event->place_id        = $request['place'];
+        $event->place           = $request['place'];
         $event->save();
 
         $id_tags = array();

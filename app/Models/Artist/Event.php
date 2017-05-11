@@ -34,7 +34,7 @@ class Event extends Model
         'contact_email',
         'contact_phone',
         'region_id',
-        'place_id',
+        'place',
         'profile_id',
     ];
 
@@ -51,10 +51,5 @@ class Event extends Model
     public function region()
     {
         return $this->hasOne(Region::class, 'id', 'region_id');
-    }
-
-    public function place()
-    {
-        return $this->hasOne(Place::class, 'id', 'place_id');
     }
 }

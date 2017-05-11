@@ -24,7 +24,7 @@
                             {{ $address->region->place }}
                         </div>
                         <div class="col-md-12">
-                            {{ $address->place->place }}
+                            {{ $address->place }}
                         </div>
                         <div class="col-md-12">
                             {{ $address->address }}

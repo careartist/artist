@@ -23,7 +23,7 @@ class Address extends Model
      */
     protected $fillable = [
         'region_id',
-        'place_id',
+        'place',
         'address',
         'profile_id',
     ];
@@ -31,11 +31,6 @@ class Address extends Model
     public function region()
     {
         return $this->hasOne(Region::class, 'id', 'region_id');
-    }
-
-    public function place()
-    {
-        return $this->hasOne(Place::class, 'id', 'place_id');
     }
 
     public function user_profile()
