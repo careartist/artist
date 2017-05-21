@@ -48,7 +48,7 @@
             -->
 
             <div class="logo">
-                <a href="#" class="simple-text">
+                <a href="{{ route('home') }}" class="simple-text">
                     Artist Care
                 </a>
             </div>
@@ -70,13 +70,13 @@
                     @if(Sentinel::getUser()->inRole('artist'))
                     <li class="{{ ( $current_route_name == 'artist.profile') ? 'active' : '' }}">
                         <a href="{{ route('artist.profile') }}">
-                            <i class="material-icons">person</i>
+                            <i class="material-icons">person_pin</i>
                             <p>Artist Profile</p>
                         </a>
                     </li>
                     <li class="{{ ( $current_route_name == 'events.index') ? 'active' : '' }}">
                         <a href="{{ route('events.index') }}">
-                            <i class="material-icons">list</i>
+                            <i class="material-icons">event_note</i>
                             <p>Events</p>
                         </a>
                     </li>
@@ -89,36 +89,6 @@
                             </a>
                         </li>
                     @endif
-                    <li>
-                        <a href="table.html">
-                            <i class="material-icons">content_paste</i>
-                            <p>Table List</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="typography.html">
-                            <i class="material-icons">library_books</i>
-                            <p>Typography</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="icons.html">
-                            <i class="material-icons">bubble_chart</i>
-                            <p>Icons</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="maps.html">
-                            <i class="material-icons">location_on</i>
-                            <p>Maps</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="notifications.html">
-                            <i class="material-icons text-gray">notifications</i>
-                            <p>Notifications</p>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -167,7 +137,16 @@
                                     <li><a href="#">You have 5 new tasks</a></li>
                                     <li><a href="#">You're now friend with Andrew</a></li>
                                     <li><a href="#">Another Notification</a></li>
-                                    <li><a href="#">Another One</a></li>
+                                    <li>
+                                        <a href="{{ route('auth.logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout 
+                                        </a>
+                                        <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

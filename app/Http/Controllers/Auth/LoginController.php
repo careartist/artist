@@ -23,7 +23,7 @@ class LoginController extends Controller
             return redirect()->route('user.address.create');
         }
         
-    	return redirect()->route('home');
+    	return redirect()->route('user.dashboard');
     }
 
     public function logout()

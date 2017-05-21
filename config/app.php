@@ -175,11 +175,6 @@ return [
          */
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         
-        /*
-         * Html/Form Service Providers...
-         */
-        Collective\Html\HtmlServiceProvider::class,
-        App\Providers\FormServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -189,6 +184,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        /*
+         * Html/Form Service Providers...
+         */
+        Collective\Html\HtmlServiceProvider::class,
+        App\Providers\FormServiceProvider::class,
 
     ],
 

@@ -22,7 +22,10 @@ Route::name('auth.login')->get('/login', 'Auth\LoginController@login');
 Route::post('/login', 'Auth\LoginController@postLogin');
 Route::name('auth.logout')->post('/logout', 'Auth\LoginController@logout');
 
-Route::name('public.events.tag')->get('events/tag/{tag}', 'EventTagController@show');
+Route::name('public.events')->get('events', 'EventController@index');
+Route::name('public.events.show')->get('event/{id}/{title}', 'EventController@show');
+Route::name('public.events.tag')->get('events/tag/{tag}', 'EventController@showTags');
+Route::name('public.events.type')->get('events/type/{type}', 'EventController@showTypes');
 
 Route::prefix('user')->group(function() {
 

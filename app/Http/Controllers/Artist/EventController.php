@@ -10,8 +10,6 @@ use App\Models\Artist\EventType;
 use App\Models\Artist\Event;
 use App\Models\Artist\EventTag;
 use App\Models\User\Region;
-use App\Models\User\PlacePivot;
-use App\Models\User\Place;
 use Sentinel;
 
 class EventController extends Controller

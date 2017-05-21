@@ -47,6 +47,12 @@
                             @endforeach
                             <hr>
                             </div>
+                            <div class="col-md-12">
+                                <a href="{{ route('public.events.type', ['type' => $event->type]) }}">
+                                    <span class="label label-warning">{{ $event->type }}</span>
+                                </a>
+                                <hr>
+                            </div>
                         </div>
                         @endforeach
                     </div>

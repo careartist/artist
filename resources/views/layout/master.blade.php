@@ -85,6 +85,8 @@
                     @yield('content')
 
                     </div>
+
+                    @yield('right-side')
                 </div>
 
             </div>

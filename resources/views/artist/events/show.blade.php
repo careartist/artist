@@ -79,7 +79,9 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <span class="label label-primary">{{ $event->type }}</span>
+                                    <a href="{{ route('public.events.type', ['type' => $event->type]) }}">
+                                        <span class="label label-warning">{{ $event->type }}</span>
+                                    </a>
                                 </div>
                                 <div class="col-md-6">
                                     <span class="label label-success">{{ $event->price }}</span>
